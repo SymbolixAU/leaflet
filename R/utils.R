@@ -176,6 +176,7 @@ invokeRemote = function(map, method, args = list()) {
       )
     )
   )
+  print(msg)
 
   sess <- map$session
   if (map$deferUntilFlush) {

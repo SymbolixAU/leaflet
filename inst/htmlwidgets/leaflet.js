@@ -474,6 +474,7 @@ _htmlwidgets2.default.widget({
     return map;
   },
   renderValue: function renderValue(el, data, map) {
+    alert("render value");
     return this.doRenderValue(el, data, map);
   },
   doRenderValue: function doRenderValue(el, data, map) {
@@ -487,6 +488,7 @@ _htmlwidgets2.default.widget({
     // There may be an issue with leafletProxy() calls being made while
     // the map is not being viewed--not sure what the right solution is
     // there.
+    console.log(data);
     if (el.offsetWidth === 0 || el.offsetHeight === 0) {
       map.leafletr.pendingRenderData = data;
       return;
@@ -540,6 +542,7 @@ _htmlwidgets2.default.widget({
     }
 
     for (var i = 0; data.calls && i < data.calls.length; i++) {
+      console.log(data.calls);
       var call = data.calls[i];
       if (methods[call.method]) methods[call.method].apply(map, call.args);else (0, _util.log)("Unknown method " + call.method);
     }
@@ -561,6 +564,7 @@ _htmlwidgets2.default.widget({
 });
 
 if (_htmlwidgets2.default.shinyMode) {
+  alert("add custom message handler");
   _shiny2.default.addCustomMessageHandler("leaflet-calls", function (data) {
     var id = data.id;
     var el = document.getElementById(id);
@@ -571,7 +575,6 @@ if (_htmlwidgets2.default.shinyMode) {
     }
 
     for (var i = 0; i < data.calls.length; i++) {
-      var call = data.calls[i];
       if (call.dependencies) {
         _shiny2.default.renderDependencies(call.dependencies);
       }
