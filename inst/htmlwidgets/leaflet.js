@@ -474,7 +474,7 @@ _htmlwidgets2.default.widget({
     return map;
   },
   renderValue: function renderValue(el, data, map) {
-    alert("render value");
+    //alert("render value");
     return this.doRenderValue(el, data, map);
   },
   doRenderValue: function doRenderValue(el, data, map) {
@@ -564,11 +564,13 @@ _htmlwidgets2.default.widget({
 });
 
 if (_htmlwidgets2.default.shinyMode) {
-  alert("add custom message handler");
+  //alert("add custom message handler");
   _shiny2.default.addCustomMessageHandler("leaflet-calls", function (data) {
     var id = data.id;
     var el = document.getElementById(id);
+    console.log(data);
     var map = el ? (0, _jquery2.default)(el).data("leaflet-map") : null;
+//    console.log(map);
     if (!map) {
       (0, _util.log)("Couldn't find map with id " + id);
       return;
@@ -578,6 +580,9 @@ if (_htmlwidgets2.default.shinyMode) {
       if (call.dependencies) {
         _shiny2.default.renderDependencies(call.dependencies);
       }
+      console.log(i);
+      console.log(data.calls);
+      console.log(methods);
       if (methods[call.method]) methods[call.method].apply(map, call.args);else (0, _util.log)("Unknown method " + call.method);
     }
   });
