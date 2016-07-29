@@ -488,7 +488,7 @@ _htmlwidgets2.default.widget({
     // There may be an issue with leafletProxy() calls being made while
     // the map is not being viewed--not sure what the right solution is
     // there.
-    console.log(data);
+
     if (el.offsetWidth === 0 || el.offsetHeight === 0) {
       map.leafletr.pendingRenderData = data;
       return;
@@ -542,7 +542,6 @@ _htmlwidgets2.default.widget({
     }
 
     for (var i = 0; data.calls && i < data.calls.length; i++) {
-      console.log(data.calls);
       var call = data.calls[i];
       if (methods[call.method]) methods[call.method].apply(map, call.args);else (0, _util.log)("Unknown method " + call.method);
     }
@@ -564,13 +563,10 @@ _htmlwidgets2.default.widget({
 });
 
 if (_htmlwidgets2.default.shinyMode) {
-  //alert("add custom message handler");
   _shiny2.default.addCustomMessageHandler("leaflet-calls", function (data) {
     var id = data.id;
     var el = document.getElementById(id);
-    console.log(data);
     var map = el ? (0, _jquery2.default)(el).data("leaflet-map") : null;
-//    console.log(map);
     if (!map) {
       (0, _util.log)("Couldn't find map with id " + id);
       return;
@@ -580,9 +576,6 @@ if (_htmlwidgets2.default.shinyMode) {
       if (call.dependencies) {
         _shiny2.default.renderDependencies(call.dependencies);
       }
-      console.log(i);
-      console.log(data.calls);
-      console.log(methods);
       if (methods[call.method]) methods[call.method].apply(map, call.args);else (0, _util.log)("Unknown method " + call.method);
     }
   });
